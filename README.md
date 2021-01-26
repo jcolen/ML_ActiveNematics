@@ -27,7 +27,3 @@ This script produces a model file which will be saved in a `models` directory.
 ### Sharpening
 
 The `time_evolution` folder also contains the code for our physically motivated sharpening algorithm. This is implemented in C and can be compiled using the included Makefile. The resulting libraries are imported and used to implement the full forecasting loop, the function `loop_frame_prediction` in `time_evolution/sharpen.py`.
-
-### Simulation data
-
-The code for hybrid Lattice Boltzmann simulations is located at <https://github.com/sirianray/lblc/tree/master/ml_an>. The channel `src5` was used for 2D simulations while `src3-3d` was used for 3D simulations. 
