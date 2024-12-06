@@ -1,0 +1,6 @@
+env_active_nematics #Ignore conda directory
+__pycache__ 
+.ipynb_checkpoints
+*.slurm
+data
+env_active_nematics
