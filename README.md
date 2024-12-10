@@ -1,29 +1,26 @@
-# ML\_ActiveNematics
+# ML_ActiveNematics
 
-This is the official repository for the paper **Machine learning active-nematic hydrodynamics** (https://arxiv.org/abs/2006.13203).
+This is the official repository for the paper [Machine learning active-nematic hydrodynamics](https://arxiv.org/abs/2006.13203).
 
-Please direct all code-related questions to <jcolen@uchicago.edu>
+## Parameter estimation
 
-# Parameter Estimation
+Models can be trained for parameter estimation by running `parameter_estimation/src/train_parameter_estimator.py`. 
+The script takes several command line arguments. The most important one is `--directory` which specifies the dataset location. 
+The script produces model weights and predictions which are stored in a common directory specified by the `--save_name` argument. 
+Sample trained models are in `parameter_estimation/models` and notebooks containing prediction plots are in `parameter_estimation/notebooks`. 
 
-Models can be trained for parameter estimation by running `train_parameter_estimator.py` in the `parameter_estimation` directory. This requires at least one argument designating the location of the training dataset. The default arguments produce the model configurations for 2D active nematics as described in the paper. Training can be performed by executing
+## Time evolution
 
-    python train_parameter_estimator.py <DIRECTORY>
-
-We found models for 3D active nematics performed best with 5x5x5 convolutional filters. Such models can be trained by executing
-
-    python train_parameter_estimator.py <DIRECTORY> --kernel_size 5
-
-This script produces a model file which will be saved in a `models` directory, and a set of predictions on the validation set which will be saved in the `predictions` directory.
-
-# Time Evolution
-
-Models for forecasting time evolution can be trained by running `train_frame_predictor.py` in the `time_evolution` directory. This requires at least one argument designating the location of the training dataset. The default arguments produce the model configurations for 2D active nematics as described in the paper. Training can be performed by executing
-
-    python train_frame_predictor.py <DIRECTORY>
-
-This script produces a model file which will be saved in a `models` directory. 
+Models for forecasting time evolution can be trained by running `time_evolution/src/train_frame_predictor.py`.
+The script produces model weights which are stored in a directory specified by the `--save_name` argument. 
+Sample trained models are in `time_evolution/models` and notebooks containing prediction plots are in `time_evolution/notebooks`. 
 
 ### Sharpening
 
-The `time_evolution` folder also contains the code for our physically motivated sharpening algorithm. This is implemented in C and can be compiled using the included Makefile. The resulting libraries are imported and used to implement the full forecasting loop, the function `loop_frame_prediction` in `time_evolution/sharpen.py`.
+The `time_evolution/src` folder also contains code for our physically motivated sharpening algorithm. This is implemented in C and can be compiled using the included Makefile. The resulting libraries are imported and used to implement the full forecasting loop, the function `loop_frame_prediction` in `time_evolution/src/sharpen.py`.  
+
+## Correction note
+
+We recently submitted a correction after observing significant stochastic and unpredictable behavior during both training and inference for both model types - the parameter estimator and the time evolution forecaster.
+This repository has been updated to address and fix those issues so that the scripts produce consistent and accurate model behavior. 
+The wikipage contains a more detailed overview of our investigation into what the issues are, why they occurred, and how to fix them.
